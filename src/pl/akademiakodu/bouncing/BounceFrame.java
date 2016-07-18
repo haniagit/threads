@@ -44,17 +44,9 @@ public class BounceFrame extends JFrame {
 	private void printBall() {
 		Ball ball = new Ball();
 		ballPanel.add(ball);
-		int max = 1000;
-		int sleepTime = 4;
-		for (int i = 1; i <= max; i++) {
-			ball.move(ballPanel.getBounds());
-			ballPanel.paint(ballPanel.getGraphics());
-			try {
-				Thread.sleep(sleepTime);
-			} catch (InterruptedException e) {
-				System.out.println("Prablem z spaniem!");
-			}
-		}
+		Runnable ballRunnable = new BallRunnable(ball,ballPanel);
+		Thread t = new Thread(ballRunnable);
+		t.start();
 	}
 
 }
